@@ -10,14 +10,24 @@ import (
 func main() {
 	var arr = [...]int{2, 4, 6, 8, 10}
 	wg := sync.WaitGroup{}
-	wg.Add(len(arr))
+	wg.Add(1)
 
-	/* в цикле создаем горутины для конкурентных вычислений */
+	ExampleOne(arr, &wg)
+
+	wg.Wait()
+}
+
+/* 1. Простой вариант вывода квадрата чисел */
+
+func ExampleOne(arr [5]int, wg *sync.WaitGroup) {
+	wgOne := sync.WaitGroup{}
+	wgOne.Add(5)
 	for i := range arr {
 		go func(val int) {
 			fmt.Println(val * val)
-			wg.Done()
+			wgOne.Done()
 		}(arr[i])
 	}
-	wg.Wait()
+	wgOne.Wait()
+	wg.Done()
 }
