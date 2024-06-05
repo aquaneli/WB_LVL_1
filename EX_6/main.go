@@ -8,17 +8,16 @@ import (
 )
 
 func main() {
-	// ch := make(chan int)
+	ch := make(chan int)
 	wg := sync.WaitGroup{}
-	wg.Add(1)
-
-	// ExampleOne(&wg, ch)
-	// ExampleTwo(&wg, ch)
-	// ExampleThree(&wg)
-	// ExampleFour(&wg)
-	// ExampleFive(&wg)
+	wg.Add(7)
+	ExampleOne(&wg, ch)
+	ExampleTwo(&wg, ch)
+	ExampleThree(&wg)
+	ExampleFour(&wg)
+	ExampleFive(&wg)
 	ExampleSix(&wg)
-
+	ExampleSeven(&wg)
 	wg.Wait()
 }
 
@@ -117,6 +116,7 @@ func ExampleFive(wg *sync.WaitGroup) {
 	wg.Done()
 }
 
+/* Завершить горутину после прочтения данных из буферизированного канала */
 func ExampleSix(wg *sync.WaitGroup) {
 	ch := make(chan int, 5)
 
@@ -141,26 +141,21 @@ func ExampleSix(wg *sync.WaitGroup) {
 	wg.Done()
 }
 
+/* Завершил горутину используя группу ожидания */
 func ExampleSeven(wg *sync.WaitGroup) {
-	ch := make(chan int, 5)
-
-	for i := 0; i < 5; i++ {
-		ch <- i
-	}
-
+	wgEx := sync.WaitGroup{}
+	wgEx.Add(5)
 	go func() {
-	loop:
 		for {
-			select {
-			case <-ch:
-				fmt.Println("ExampleSix works")
-				time.Sleep(time.Second * 1)
-			default:
-				break loop
-			}
+			fmt.Println("ExampleSeven works")
+			wgEx.Wait()
+			break
 		}
-		fmt.Println("ExampleSix stopped")
-		close(ch)
 	}()
+	for range [5]int{} {
+		wgEx.Done()
+		time.Sleep(time.Second * 1)
+	}
+	fmt.Println("ExampleSeven stopped")
 	wg.Done()
 }
