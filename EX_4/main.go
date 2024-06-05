@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"time"
 )
 
 func main() {
@@ -71,6 +72,7 @@ loop:
 			break loop
 		default:
 			job <- i
+			time.Sleep(time.Second * 1)
 		}
 	}
 }
