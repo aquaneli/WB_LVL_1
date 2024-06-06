@@ -9,11 +9,9 @@ func main() {
 	/* Создал 2 set в которых будут записаны рандомные числа */
 	set1 := make(map[int]any)
 	set2 := make(map[int]any)
-
 	RandomiserSet(set1, set2)
 	ExampleOne(set1, set2)
 	ExampleTwo(set1, set2)
-
 }
 
 /*  Закидываем в set рандомные числа */
