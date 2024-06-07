@@ -10,6 +10,7 @@ func main() {
 	set1 := make(map[int]any)
 	set2 := make(map[int]any)
 	RandomiserSet(set1, set2)
+	/* Множество где в качестве ключа выступает само значение */
 	ExampleOne(set1, set2)
 	ExampleTwo(set1, set2)
 }
