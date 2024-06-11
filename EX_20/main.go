@@ -9,10 +9,9 @@ func main() {
 	str := "snow dog sun"
 	ExampleOne(str)
 	ExampleTwo(str)
-
 }
 
-/* Разделили строку на один слайс строк где разделитель символ ' '*/
+/* Разделили строку на один слайс строк где разделитель символ ' ' */
 func ExampleOne(str string) {
 	strSplit := strings.Split(str, " ")
 	l := len(strSplit)
