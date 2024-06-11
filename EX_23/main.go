@@ -26,14 +26,13 @@ func main() {
 
 /* Удаление элемента копирование среза в другой и возвратом среза меньшего размера */
 func ExampleOne(sl []any, i int) ([]any, error) {
-	err := error(nil)
 	if i > len(sl)-1 || len(sl) == 0 || i < 0 {
-		err = errors.New("error")
+		return nil, errors.New("error")
 	} else {
 		copy(sl[i:], sl[i+1:])
 		sl = sl[:len(sl)-1]
 	}
-	return sl, err
+	return sl, nil
 }
 
 /* Создание среза меньшего размера и копирование в него всех элементов индекс которых не равен i */
